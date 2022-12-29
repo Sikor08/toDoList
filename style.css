@@ -7,6 +7,10 @@ ul {
   padding: 0;
 }
 
+.completed {
+  text-decoration: line-through;
+}
+
 .notePad {
   padding: 15px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
@@ -34,21 +38,21 @@ ul {
   background-size: 100%;
 }
 
-.toDoListItem {
+.toDoItem {
   padding: 0;
   display: flex;
   align-items: flex-start;
 }
-.toDoListItem__check {
+.toDoItem__check {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.toDoListItem__title {
+.toDoItem__name {
   flex-grow: 1;
   padding: 0 20px;
 }
-.toDoListItem__delBtn {
+.toDoItem__delBtn {
   width: 10px;
   height: 10px;
 }
