@@ -15,25 +15,50 @@
 
 const createFormEl = document.querySelector('#createForm');
 const todoListEl = document.querySelector('#todoList');
+// Нашёл кнопку добавить
+const notePadBtn = document.querySelector('.btn-secondary');
+// Заблокировал кнопку добавить
 
-const createTodo = (name, completed) => {
+// Нашёл поле ввода добавить
+
+
+
+const btnDisabledEnabled = () => {
+    notePadBtn.setAttribute('disabled', '');
+    const inputField = document.querySelector('.notePad__input');
+// Если поле не пустое, разблокирую кнопку
+inputField.addEventListener('keyup', () => {
+    if(inputField.value != ''){
+        notePadBtn.removeAttribute('disabled')
+    }else {
+        notePadBtn.setAttribute('disabled', '') 
+    }
+})
+}
+
+
+
+
+
+const createTodo = (name, completed = false) => {
     return {
+        id: crypto.randomUUID(),
         name,
         completed,
-        id: crypto.randomUUID(),
         createdAt: new Date()
     }
-
 }
 
 const todos = [
-    createTodo('Go shoping', false),
-    createTodo('Dog walking', false),
-    createTodo('Clean room', true),
+    // createTodo('Go shoping'),
+    // createTodo('Dog walking'),
+    // createTodo('Clean room'),
 ]
 
 const render = () => {
-    todoListEl.innerHTML = ''
+    todoListEl.innerHTML = '';
+    // Добавил счётчик todo
+    notePadBtn.textContent = `ADD ${todos.length + 1}-th`;
     for (const todo of todos) {
         const liEl = document.createElement('li');
         if (todo.completed) {
@@ -65,9 +90,10 @@ const render = () => {
 
         delBtn.addEventListener('click', () => {
             const id = todo.id
-            const index = todos.findIndex(item => item.id === id)
-            todos.splice(index, 1)
+            const index = todos.findIndex(t => t.id === id)
+            todos.splice(index, 1);
             render()
+
         })
         liEl.append(delBtn);
     }
@@ -80,11 +106,12 @@ createFormEl.addEventListener('submit', (event) => {
     todos.push(createTodo(name));
     render();
     createFormEl.reset()
-    console.log(todos)
+    btnDisabledEnabled()
+
 })
 
 render()
-
+btnDisabledEnabled()
 // todos id
 
 // const nameToDelete = 'John'
